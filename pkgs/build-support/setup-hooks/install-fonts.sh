@@ -20,7 +20,7 @@
 # This hook also provides an `installFont` function that can be used to install
 # additional fonts of a particular extension into their respective folder.
 #
-postInstallHooks+=(installFonts)
+preInstallHooks+=(installFonts)
 
 installFont() {
   if (($# != 2)); then
@@ -46,6 +46,7 @@ installFonts() {
   installFont 'bdf' "$out/share/fonts/misc"
   installFont 'pcf' "$out/share/fonts/misc"
   installFont 'otb' "$out/share/fonts/misc"
+  installFont 'pcf.gz' "$out/share/fonts/misc"
   installFont 'psf' "$out/share/consolefonts"
   installFont 'psfu' "$out/share/consolefonts"
 

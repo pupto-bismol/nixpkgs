@@ -5,13 +5,13 @@
 }:
 mkLibretroCore {
   core = "dosbox-pure";
-  version = "0-unstable-2026-05-12";
+  version = "0-unstable-2026-06-06";
 
   src = fetchFromGitHub {
     owner = "schellingb";
     repo = "dosbox-pure";
-    rev = "3a5222c97456e8df90983eb546f4d866b0feb848";
-    hash = "sha256-FeT1VPOJsZaC9SZbJwbiC0fkVV/WOJ+rOcwf8g+wdeM=";
+    rev = "b2825c2f0a705f93d3c4d1b4369c8728d76f2e07";
+    hash = "sha256-S470+U7rP7EXapPSwliUh8MwIKvKm+mgc7BuQkN572k=";
   };
 
   hardeningDisable = [ "format" ];

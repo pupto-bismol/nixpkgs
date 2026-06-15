@@ -9,13 +9,13 @@
 buildHomeAssistantComponent rec {
   owner = "homeassistant-ai";
   domain = "ha_mcp_tools";
-  version = "7.4.1";
+  version = "7.7.0";
 
   src = fetchFromGitHub {
     owner = "homeassistant-ai";
     repo = "ha-mcp";
     tag = "v${version}";
-    hash = "sha256-F13BoZinPnv+tlkiVnG7iAkr2JdEbFE0RIEgmHa/yq4=";
+    hash = "sha256-Gp4C3SRNkgv9GfLkVx/VCMp4/kCORHsp87IHcCaCPKk=";
   };
 
   dependencies = [

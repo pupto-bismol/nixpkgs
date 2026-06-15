@@ -3,7 +3,7 @@
 let
   inherit (lib)
     any
-    foldl
+    foldl'
     hasInfix
     isAttrs
     isList
@@ -85,11 +85,12 @@ let
     let
       allArgs = systemToAttrs systemOrArgs;
 
-      # Those two will always be derived from "config", if given, so they should NOT
-      # be overridden further down with "// args".
+      # These attributes are derived from other inputs, so they should NOT be
+      # overridden further down with "// args".
       args = removeAttrs allArgs [
         "parsed"
         "system"
+        "_withoutFunctions"
       ];
 
       # TODO: deprecate args.rustc in favour of args.rust after 23.05 is EOL.
@@ -298,12 +299,10 @@ let
         inherit
           (
             {
-              linux-kernel = args.linux-kernel or { };
               gcc = args.gcc or { };
             }
             // platforms.select final
           )
-          linux-kernel
           gcc
           ;
 
@@ -691,8 +690,13 @@ let
         };
       };
     in
+    # TODO: Remove in 27.05.
+    assert
+      args ? linux-kernel
+      -> throw "lib.systems.elaborate: linux-kernel has been removed; see the 26.11 release notes";
+
     assert final.useAndroidPrebuilt -> final.isAndroid;
-    assert foldl (pass: { assertion, message }: if assertion final then pass else throw message) true (
+    assert foldl' (pass: { assertion, message }: if assertion final then pass else throw message) true (
       final.parsed.abi.assertions or [ ]
     );
     final;
